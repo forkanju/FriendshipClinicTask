@@ -1,0 +1,83 @@
+[versions]
+agp = "8.3.2"
+converterGson = "2.9.0"
+fancytoast = "2.0.2"
+fragmentKtx = "1.6.2"
+hiltAndroid = "2.51"
+hiltNavigation = "1.2.0"
+kotlin = "1.9.23"
+coreKtx = "1.13.0"
+junit = "4.13.2"
+junitVersion = "1.1.5"
+espressoCore = "3.5.1"
+lifecycleRuntimeKtx = "2.7.0"
+chucker = "4.0.0"
+gson = "2.10.1"
+ksp = "1.9.10-1.0.13"
+logger = "2.2.0"
+navigationUiKtx = "2.7.7"
+navigationFragmentKtx = "2.7.7"
+okhttp = "5.0.0-alpha.12"
+retrofit = "2.9.0"
+roomCompiler = "2.6.1"
+sdpAndroid = "1.1.0"
+timber = "5.0.1"
+toasty = "1.5.2"
+appcompat = "1.6.1"
+material = "1.11.0"
+activity = "1.9.0"
+constraintlayout = "2.1.4"
+swiperefreshlayout = "1.1.0"
+
+[libraries]
+androidx-activity = { module = "androidx.activity:activity-ktx", version.ref = "activity" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-fragment = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtx" }
+androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationUiKtx" }
+androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomCompiler" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomCompiler" }
+converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
+fancy-toast = { module = "io.github.shashank02051997:FancyToast", version.ref = "fancytoast" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+#chucker
+chucker-library = { module = "com.github.chuckerteam.chucker:library", version.ref = "chucker" }
+chucker-library-no = { module = "com.github.chuckerteam.chucker:library-no-op", version.ref = "chucker" }
+#gson
+google-gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+#hilt
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
+hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltAndroid" }
+hilt-navigation = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigation" }
+logger = { module = "com.orhanobut:logger", version.ref = "logger" }
+logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
+okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+sdp-android = { module = "com.intuit.sdp:sdp-android", version.ref = "sdpAndroid" }
+ssp-android = { module = "com.intuit.ssp:ssp-android", version.ref = "sdpAndroid" }
+timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
+toasty = { module = "com.github.GrenderG:Toasty", version.ref = "toasty" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefreshlayout" }
+
+[bundles]
+
+androidx-test = [
+    "androidx-junit",
+    "androidx-espresso-core"
+]
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin"}
+hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hiltAndroid" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp"}
+

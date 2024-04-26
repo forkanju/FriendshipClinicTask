@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Friendship</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="logo">logo</string>
+    <string name="service_provider_list">Service Provider List</string>
+    <string name="active">Active</string>
+    <string name="deactivate">Deactivate</string>
+    <string name="name">Name</string>
+    <string name="select_gender">Select Gender</string>
+    <string name="phone">Phone</string>
+    <string name="update">UPDATE</string>
+    <string name="email">email</string>
+    <string name="edit">EDIT</string>
+    <string name="md_forkan">Md Forkan</string>
+    <string name="female">female</string>
+    <string name="forkan_gmail_com">forkan@gmail.com</string>
+    <string name="a">A</string>
+</resources>

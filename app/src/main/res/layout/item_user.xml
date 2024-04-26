@@ -1,0 +1,108 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_own_rider_pending"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/itemCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_4sdp"
+        android:elevation="@dimen/_4sdp"
+        android:orientation="vertical"
+        android:paddingStart="8dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="8dp"
+        app:cardCornerRadius="@dimen/_2sdp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:orientation="horizontal"
+            android:weightSum="6">
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardCircle"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/_4sdp"
+                android:orientation="vertical"
+                android:paddingStart="8dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="8dp"
+                app:cardBackgroundColor="@color/green"
+                app:cardCornerRadius="@dimen/_50sdp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/cardText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:ellipsize="start"
+                    android:text="@string/a"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_26sdp"
+                    android:textStyle="bold" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5.6"
+                android:orientation="vertical"
+                android:padding="@dimen/_8sdp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="@string/md_forkan"
+                    android:textColor="#595959"
+                    android:textSize="@dimen/_16sdp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvGender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="@string/female"
+                    android:textColor="#595959"
+                    android:textSize="@dimen/_14sdp" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="@string/forkan_gmail_com"
+                    android:textColor="#595959"
+                    android:textSize="@dimen/_14sdp" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/edit"
+                android:layout_width="@dimen/_28sdp"
+                android:layout_height="@dimen/_28sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:contentDescription="@string/edit"
+                android:src="@drawable/edit" />
+
+        </LinearLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>
