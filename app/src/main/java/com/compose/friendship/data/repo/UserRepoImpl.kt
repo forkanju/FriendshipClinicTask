@@ -7,7 +7,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.forms.submitForm
 import io.ktor.client.request.get
-import io.ktor.client.request.patch
+import io.ktor.http.HttpMethod
 import io.ktor.http.isSuccess
 import io.ktor.http.parameters
 import kotlinx.coroutines.CoroutineDispatcher
@@ -58,13 +58,14 @@ class UserRepoImpl @Inject constructor(
         return withContext(io) {
             try {
                 // @FormUrlEncoded - alternate submitForm
-                val result = httpClient.patch("public/v2/users/$userId") {
-                    parameters {
+                val result = httpClient.submitForm(url = "public/v2/users/$userId",
+                    formParameters = parameters {
                         append(name = "name", value = name)
                         append(name = "email", value = email)
                         append(name = "gender", value = gender)
                         append(name = "status", value = status)
-                    }
+                    }) {
+                    method = HttpMethod.Patch
                 }
                 if (result.status.isSuccess()) {
                     val data = result.body<UserInfo>()

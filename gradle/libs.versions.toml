@@ -63,7 +63,6 @@ androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "s
 
 #ktor
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
-ktor-client-android= { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
 ktor-client-okhttp= { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 ktor-client-negotiation= { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-client-serialization-jackson= { module = "io.ktor:ktor-serialization-jackson", version.ref = "ktor" }
@@ -73,7 +72,6 @@ slf4j-android = { module = "org.slf4j:slf4j-android", version.ref = "slf4jAndroi
 [bundles]
 ktor = [
     "ktor-client-core",
-    "ktor-client-android",
     "ktor-client-okhttp",
     "ktor-client-negotiation",
     "ktor-client-serialization-jackson",
