@@ -2,7 +2,6 @@ package com.compose.friendship.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.compose.friendship.R
 import com.compose.friendship.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -13,7 +12,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 
 
     }

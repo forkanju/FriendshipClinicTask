@@ -17,7 +17,7 @@ import com.compose.friendship.Constants.Companion.USER
 import com.compose.friendship.R
 import com.compose.friendship.RequestState
 import com.compose.friendship.databinding.FragmentEditBinding
-import com.compose.friendship.model.User
+import com.compose.friendship.model.UserInfo
 import com.google.android.material.snackbar.Snackbar
 
 class EditFragment : Fragment() {
@@ -25,7 +25,7 @@ class EditFragment : Fragment() {
     private val viewModel by activityViewModels<UserViewModel>()
     private var selectedGender = ""
     private var type: String? = null
-    private var user: User.UserInfo? = null
+    private var user: UserInfo? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -1,6 +1,5 @@
 package com.compose.friendship.presentation
 
-import android.util.Log
 import androidx.annotation.IdRes
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -8,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.compose.friendship.R
 import com.compose.friendship.RequestState
 import com.compose.friendship.data.repo.UserRepo
-import com.compose.friendship.model.User
+import com.compose.friendship.model.UserInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,11 +25,11 @@ class UserViewModel @Inject constructor(
 
     val selectedButton = savedStateHandle.getStateFlow("selectedButton", R.id.btnActive)
 
-    private val _users = MutableStateFlow(listOf<User.UserInfo>())
-    private val _usersCopy = MutableStateFlow(listOf<User.UserInfo>())
+    private val _users = MutableStateFlow(listOf<UserInfo>())
+    private val _usersCopy = MutableStateFlow(listOf<UserInfo>())
     val users = _users.asStateFlow()
 
-    private val _getUserState = MutableSharedFlow<RequestState<List<User.UserInfo>>>()
+    private val _getUserState = MutableSharedFlow<RequestState<List<UserInfo>>>()
     val getUserState = _getUserState.asSharedFlow()
 
     fun changeButton(@IdRes id: Int) {
@@ -60,9 +59,8 @@ class UserViewModel @Inject constructor(
         email: String,
         gender: String,
         status: String,
-        data: (RequestState<User.UserInfo>) -> Unit
+        data: (RequestState<UserInfo>) -> Unit
     ) {
-        Log.d("UserViewModel", "create:called")
 
         viewModelScope.launch {
             val result = repo.create(name = name, email = email, gender = gender, status = status)
@@ -76,11 +74,10 @@ class UserViewModel @Inject constructor(
         email: String,
         gender: String,
         status: String,
-        data: (RequestState<User.UserInfo>) -> Unit
+        data: (RequestState<UserInfo>) -> Unit
     ) {
 
 
-        Log.d("UserViewModel", "update:called")
         viewModelScope.launch {
             val result = repo.update(
                 userId = userId,

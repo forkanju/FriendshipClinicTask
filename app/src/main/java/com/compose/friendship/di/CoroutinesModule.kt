@@ -41,8 +41,8 @@ object CoroutinesModule {
     @ApplicationScope
     fun providesCoroutineScope(
         @DefaultDispatcher dispatcher: CoroutineDispatcher
-    ): CoroutineScope  {
-        val coroutineExceptionHandler = CoroutineExceptionHandler{_, throwable ->
+    ): CoroutineScope {
+        val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
             throwable.printStackTrace()
         }
         return CoroutineScope(SupervisorJob() + dispatcher + coroutineExceptionHandler)

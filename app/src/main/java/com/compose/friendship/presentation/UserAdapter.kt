@@ -12,14 +12,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.compose.friendship.Constants.Companion.ACTIVE
 import com.compose.friendship.R
 import com.compose.friendship.databinding.ItemUserBinding
-import com.compose.friendship.model.User
+import com.compose.friendship.model.UserInfo
 import java.util.Locale
 import java.util.Random
 
 class UserAdapter(
-    private val list: List<User.UserInfo>,
-    private val onItemClicked: (User.UserInfo) -> Unit,
-    private val onEditClicked: (User.UserInfo) -> Unit,
+    private val list: List<UserInfo>,
+    private val onItemClicked: (UserInfo) -> Unit,
+    private val onEditClicked: (UserInfo) -> Unit,
 ) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
     inner class ViewHolder(
@@ -31,7 +31,7 @@ class UserAdapter(
 
         @RequiresApi(Build.VERSION_CODES.O)
         @SuppressLint("SetTextI18n")
-        fun bindView(item: User.UserInfo) {
+        fun bindView(item: UserInfo) {
             binding.apply {
                 cardText.text = item.name.getFirstLetter()
                 tvName.text = item.name
@@ -45,9 +45,9 @@ class UserAdapter(
                 }
 
 
-                if (item.status == ACTIVE){
+                if (item.status == ACTIVE) {
                     cardCircle.setCardBackgroundColor(getRandomColor())
-                }else{
+                } else {
                     cardCircle.setCardBackgroundColor(
                         ContextCompat.getColor(
                             context,
@@ -62,7 +62,12 @@ class UserAdapter(
 
     private fun getRandomColor(): Int {
         val random = Random()
-        return Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256))
+        return Color.argb(
+            255,
+            random.nextInt(256),
+            random.nextInt(256),
+            random.nextInt(256)
+        )
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(

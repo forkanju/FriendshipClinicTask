@@ -1,33 +1,33 @@
 [versions]
-agp = "8.3.2"
-converterGson = "2.9.0"
+agp = "8.4.0"
 fancytoast = "2.0.2"
-fragmentKtx = "1.6.2"
-hiltAndroid = "2.51"
+fragmentKtx = "1.7.0"
+hiltAndroid = "2.51.1"
 hiltNavigation = "1.2.0"
 kotlin = "1.9.23"
-coreKtx = "1.13.0"
+coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
 lifecycleRuntimeKtx = "2.7.0"
 chucker = "4.0.0"
 gson = "2.10.1"
-ksp = "1.9.10-1.0.13"
+ksp = "1.9.23-1.0.20"
 logger = "2.2.0"
 navigationUiKtx = "2.7.7"
 navigationFragmentKtx = "2.7.7"
-okhttp = "5.0.0-alpha.12"
-retrofit = "2.9.0"
+okhttp = "5.0.0-alpha.14"
 roomCompiler = "2.6.1"
-sdpAndroid = "1.1.0"
+sdpAndroid = "1.1.1"
 timber = "5.0.1"
 toasty = "1.5.2"
 appcompat = "1.6.1"
-material = "1.11.0"
+material = "1.12.0"
 activity = "1.9.0"
-constraintlayout = "2.1.4"
 swiperefreshlayout = "1.1.0"
+ktor = "2.3.10"
+slf4jAndroid = "1.7.36"
+
 
 [libraries]
 androidx-activity = { module = "androidx.activity:activity-ktx", version.ref = "activity" }
@@ -38,7 +38,6 @@ androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fr
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomCompiler" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomCompiler" }
-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
 fancy-toast = { module = "io.github.shashank02051997:FancyToast", version.ref = "fancytoast" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -54,9 +53,6 @@ hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltA
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltAndroid" }
 hilt-navigation = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigation" }
 logger = { module = "com.orhanobut:logger", version.ref = "logger" }
-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
-okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 sdp-android = { module = "com.intuit.sdp:sdp-android", version.ref = "sdpAndroid" }
 ssp-android = { module = "com.intuit.ssp:ssp-android", version.ref = "sdpAndroid" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
@@ -65,8 +61,25 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefreshlayout" }
 
-[bundles]
+#ktor
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-android= { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
+ktor-client-okhttp= { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+ktor-client-negotiation= { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-client-serialization-jackson= { module = "io.ktor:ktor-serialization-jackson", version.ref = "ktor" }
+ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
+slf4j-android = { module = "org.slf4j:slf4j-android", version.ref = "slf4jAndroid" }
 
+[bundles]
+ktor = [
+    "ktor-client-core",
+    "ktor-client-android",
+    "ktor-client-okhttp",
+    "ktor-client-negotiation",
+    "ktor-client-serialization-jackson",
+    "slf4j-android",
+    "ktor-client-logging"
+]
 androidx-test = [
     "androidx-junit",
     "androidx-espresso-core"

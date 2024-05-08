@@ -72,11 +72,8 @@ dependencies {
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
 
-    // Retrofit
-    implementation(libs.retrofit)
-    implementation(libs.converter.gson)
-    implementation(libs.okhttp)
-    implementation(libs.logging.interceptor)
+    // ktor
+    implementation(libs.bundles.ktor)
 
     //dimen sdp ssp
     implementation(libs.sdp.android)

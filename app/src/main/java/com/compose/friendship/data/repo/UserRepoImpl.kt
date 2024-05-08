@@ -1,43 +1,47 @@
 package com.compose.friendship.data.repo
 
-import android.util.Log
 import com.compose.friendship.RequestState
-import com.compose.friendship.data.api.FriendshipAPI
 import com.compose.friendship.di.IoDispatcher
-import com.compose.friendship.model.User
+import com.compose.friendship.model.UserInfo
+import io.ktor.client.HttpClient
+import io.ktor.client.call.body
+import io.ktor.client.request.forms.submitForm
+import io.ktor.client.request.get
+import io.ktor.client.request.patch
+import io.ktor.http.isSuccess
+import io.ktor.http.parameters
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
-import java.io.IOException
-import java.net.UnknownHostException
 import javax.inject.Inject
 
 class UserRepoImpl @Inject constructor(
     @IoDispatcher private val io: CoroutineDispatcher,
-    private val api: FriendshipAPI
+    private val httpClient: HttpClient
 ) : UserRepo {
     override suspend fun create(
         name: String,
         email: String,
         gender: String,
         status: String
-    ): RequestState<User.UserInfo> {
+    ): RequestState<UserInfo> {
         return withContext(io) {
             try {
-                val result = api.create(
-                    name = name,
-                    email = email,
-                    gender = gender,
-                    status = status
+                // @FormUrlEncoded - alternate submitForm
+                val result = httpClient.submitForm(
+                    url = "public/v2/users",
+                    formParameters = parameters {
+                        append(name = "name", value = name)
+                        append(name = "email", value = email)
+                        append(name = "gender", value = gender)
+                        append(name = "status", value = status)
+                    }
                 )
-                val data = result.body()
-                if (result.isSuccessful && data != null)
+                if (result.status.isSuccess()) {
+                    val data = result.body<UserInfo>()
                     RequestState.Success(data)
-                else
-                    RequestState.Error("Field is empty!")
-            } catch (e: UnknownHostException) {
-                RequestState.Error("No Internet")
-            } catch (e: IOException) {
-                RequestState.Error("Server Not Responding")
+                } else {
+                    RequestState.Error(result.status.value.toString())
+                }
             } catch (e: Exception) {
                 RequestState.Error(e.message.toString())
             }
@@ -50,59 +54,40 @@ class UserRepoImpl @Inject constructor(
         email: String,
         gender: String,
         status: String
-    ): RequestState<User.UserInfo> {
+    ): RequestState<UserInfo> {
         return withContext(io) {
             try {
-                val result = api.update(
-                    userId = userId,
-                    name = name,
-                    email = email,
-                    gender = gender,
-                    status = status
-                )
-                val data = result.body()
-                if (result.isSuccessful && data != null){
-                    Log.d("UserRepoImpl", "data: $data")
-                    if (result.code() == 200) {
-                        Log.d("UserRepoImpl", "code: ${result.code()}")
-
-                        RequestState.Success(data)
-                    } else {
-                        Log.d("UserRepoImpl", "code: ${result.code()}")
-                        RequestState.Error("Unexpected status code: ${result.code()}")
+                // @FormUrlEncoded - alternate submitForm
+                val result = httpClient.patch("public/v2/users/$userId") {
+                    parameters {
+                        append(name = "name", value = name)
+                        append(name = "email", value = email)
+                        append(name = "gender", value = gender)
+                        append(name = "status", value = status)
                     }
-                } else{
-                    Log.d("UserRepoImpl", "code e : ${result.code()}")
-                    Log.d("UserRepoImpl", "code e : ${result.message()}")
-                    RequestState.Error("Field is empty!")
-
                 }
-            } catch (e: UnknownHostException) {
-                Log.d("UserRepoImpl", "e unknown: ${e.message}")
-                RequestState.Error("No Internet")
-            } catch (e: IOException) {
-                Log.d("UserRepoImpl", "io: ${e.message}")
-                RequestState.Error("Server Not Responding")
+                if (result.status.isSuccess()) {
+                    val data = result.body<UserInfo>()
+                    RequestState.Success(data)
+                } else {
+                    RequestState.Error(result.status.value.toString())
+                }
             } catch (e: Exception) {
-                Log.d("UserRepoImpl", "Ex: ${e.message}")
                 RequestState.Error(e.message.toString())
             }
         }
     }
 
-    override suspend fun getUsers(): RequestState<List<User.UserInfo>> {
+    override suspend fun getUsers(): RequestState<List<UserInfo>> {
         return withContext(io) {
             try {
-                val result = api.getUsers()
-                val data = result.body()
-                if (result.isSuccessful && data != null)
+                val result = httpClient.get("public/v2/users")
+                if (result.status.isSuccess()) {
+                    val data = result.body<List<UserInfo>>()
                     RequestState.Success(data)
-                else
-                    RequestState.Error(result.message())
-            } catch (e: UnknownHostException) {
-                RequestState.Error("No Internet")
-            } catch (e: IOException) {
-                RequestState.Error("Server Not Responding")
+                } else {
+                    RequestState.Error(result.status.value.toString())
+                }
             } catch (e: Exception) {
                 RequestState.Error(e.message.toString())
             }
