@@ -25,8 +25,8 @@ class UserViewModel @Inject constructor(
 
     val selectedButton = savedStateHandle.getStateFlow("selectedButton", R.id.btnActive)
 
-    private val _users = MutableStateFlow(listOf<UserInfo>())
     private val _usersCopy = MutableStateFlow(listOf<UserInfo>())
+    private val _users = MutableStateFlow(listOf<UserInfo>())
     val users = _users.asStateFlow()
 
     private val _getUserState = MutableSharedFlow<RequestState<List<UserInfo>>>()
@@ -76,8 +76,6 @@ class UserViewModel @Inject constructor(
         status: String,
         data: (RequestState<UserInfo>) -> Unit
     ) {
-
-
         viewModelScope.launch {
             val result = repo.update(
                 userId = userId,
@@ -87,10 +85,6 @@ class UserViewModel @Inject constructor(
                 status = status
             )
             data.invoke(result)
-
-
         }
     }
-
-
 }

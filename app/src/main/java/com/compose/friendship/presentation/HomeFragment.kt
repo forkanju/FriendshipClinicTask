@@ -20,6 +20,7 @@ import com.compose.friendship.Constants.Companion.USER
 import com.compose.friendship.R
 import com.compose.friendship.RequestState
 import com.compose.friendship.databinding.FragmentHomeBinding
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -43,6 +44,10 @@ class HomeFragment : Fragment() {
 
     private fun setupUI() {
         binding.swipeRefresh.isRefreshing = true
+    }
+
+    override fun onResume() {
+        super.onResume()
         viewModel.getUsers()
     }
 
@@ -72,11 +77,15 @@ class HomeFragment : Fragment() {
                 when (data) {
                     is RequestState.Error -> {
                         Timber.tag("HomeFragment").d("error: %s", data.error)
+                        Snackbar.make(binding.root, data.error, Snackbar.LENGTH_SHORT).show()
                         binding.swipeRefresh.isRefreshing = false
+
                     }
 
-                    RequestState.Loading ->
+                    RequestState.Loading -> {
+                        Timber.tag("HomeFragment").d("loading")
                         binding.swipeRefresh.isRefreshing = true
+                    }
 
                     is RequestState.Success ->
                         binding.swipeRefresh.isRefreshing = false

@@ -1,5 +1,6 @@
 package com.compose.friendship.data.repo
 
+import com.compose.friendship.NetworkHelper
 import com.compose.friendship.RequestState
 import com.compose.friendship.di.IoDispatcher
 import com.compose.friendship.model.UserInfo
@@ -16,7 +17,8 @@ import javax.inject.Inject
 
 class UserRepoImpl @Inject constructor(
     @IoDispatcher private val io: CoroutineDispatcher,
-    private val httpClient: HttpClient
+    private val httpClient: HttpClient,
+    private val networkHelper: NetworkHelper
 ) : UserRepo {
     override suspend fun create(
         name: String,
@@ -26,6 +28,9 @@ class UserRepoImpl @Inject constructor(
     ): RequestState<UserInfo> {
         return withContext(io) {
             try {
+                if (!networkHelper.isNetworkConnected()) {
+                    return@withContext RequestState.Error("No Internet Connection")
+                }
                 // @FormUrlEncoded - alternate submitForm
                 val result = httpClient.submitForm(
                     url = "public/v2/users",
@@ -57,6 +62,9 @@ class UserRepoImpl @Inject constructor(
     ): RequestState<UserInfo> {
         return withContext(io) {
             try {
+                if (!networkHelper.isNetworkConnected()) {
+                    return@withContext RequestState.Error("No Internet Connection")
+                }
                 // @FormUrlEncoded - alternate submitForm
                 val result = httpClient.submitForm(url = "public/v2/users/$userId",
                     formParameters = parameters {
@@ -82,6 +90,9 @@ class UserRepoImpl @Inject constructor(
     override suspend fun getUsers(): RequestState<List<UserInfo>> {
         return withContext(io) {
             try {
+                if (!networkHelper.isNetworkConnected()) {
+                    return@withContext RequestState.Error("No Internet Connection")
+                }
                 val result = httpClient.get("public/v2/users")
                 if (result.status.isSuccess()) {
                     val data = result.body<List<UserInfo>>()

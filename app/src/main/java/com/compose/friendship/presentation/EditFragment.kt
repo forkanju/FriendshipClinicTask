@@ -1,9 +1,11 @@
 package com.compose.friendship.presentation
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -55,7 +57,8 @@ class EditFragment : Fragment() {
             topAppBar.setNavigationOnClickListener {
                 findNavController().popBackStack()
             }
-            btnCreateOrUpdate.setOnClickListener {
+            btnCreateOrUpdate.setOnClickListener { view ->
+                view.hideKeyboard()
                 val name = name.text.toString()
                 val email = email.text.toString()
                 // Validate the input fields
@@ -87,13 +90,13 @@ class EditFragment : Fragment() {
                                 view?.let { it2 ->
                                     Snackbar.make(
                                         it2,
-                                        "Something went wrong!",
+                                        result.error,
                                         Snackbar.LENGTH_SHORT
                                     ).show()
                                 }
 
                             RequestState.Loading -> {}
-                            is RequestState.Success ->
+                            is RequestState.Success -> {
                                 view?.let { it2 ->
                                     Snackbar.make(
                                         it2,
@@ -101,6 +104,8 @@ class EditFragment : Fragment() {
                                         Snackbar.LENGTH_SHORT
                                     ).show()
                                 }
+                                findNavController().popBackStack()
+                            }
                         }
                     }
                 } else {
@@ -117,13 +122,12 @@ class EditFragment : Fragment() {
                                     view?.let { it2 ->
                                         Snackbar.make(
                                             it2,
-                                            "Something went wrong!",
+                                            result.error,
                                             Snackbar.LENGTH_SHORT
                                         ).show()
                                     }
 
-                                RequestState.Loading -> {}
-                                is RequestState.Success ->
+                                is RequestState.Success -> {
                                     view?.let { it2 ->
                                         Snackbar.make(
                                             it2,
@@ -131,6 +135,10 @@ class EditFragment : Fragment() {
                                             Snackbar.LENGTH_SHORT
                                         ).show()
                                     }
+                                    findNavController().popBackStack()
+                                }
+
+                                RequestState.Loading -> {}
                             }
                         }
                     }
@@ -164,4 +172,10 @@ class EditFragment : Fragment() {
         }
     }
 
+}
+
+
+fun View.hideKeyboard() {
+    val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    inputManager.hideSoftInputFromWindow(windowToken, 0)
 }
