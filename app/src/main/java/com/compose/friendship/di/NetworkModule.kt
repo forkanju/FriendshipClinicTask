@@ -2,19 +2,24 @@ package com.compose.friendship.di
 
 import android.content.Context
 import com.chuckerteam.chucker.api.ChuckerInterceptor
-import com.compose.friendship.Constants.Companion.BASE_URL
-import com.compose.friendship.Constants.Companion.TOKEN
-import com.compose.friendship.data.api.FriendshipAPI
+import com.compose.friendship.Constants
+import com.fasterxml.jackson.annotation.JsonSetter
+import com.fasterxml.jackson.annotation.Nulls
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.okhttp.OkHttp
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.defaultRequest
+import io.ktor.client.plugins.logging.LogLevel
+import io.ktor.client.plugins.logging.Logging
+import io.ktor.client.request.header
+import io.ktor.http.ContentType
+import io.ktor.http.HttpHeaders
+import io.ktor.serialization.jackson.jackson
 import javax.inject.Singleton
 
 /**by @forkan at pran-rfl group-2024*/
@@ -30,60 +35,44 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideLoggingInterceptor(): HttpLoggingInterceptor {
-        val loggingInterceptor = HttpLoggingInterceptor()
-        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-        return loggingInterceptor
-    }
-
-    @Singleton
-    @Provides
-    fun provideAuthorizationInterceptor(): Interceptor {
-        return Interceptor { chain ->
-            val originalRequest = chain.request()
-            val newRequest = originalRequest.newBuilder()
-                .header("Authorization", TOKEN)
-                .build()
-            chain.proceed(newRequest)
-        }
-    }
-
-    @Singleton
-    @Provides
-    fun provideHttpClient(
-        loggingInterceptor: HttpLoggingInterceptor,
+    fun provideKtorClient(
         chuckerInterceptor: ChuckerInterceptor
-    ): OkHttpClient {
-        return OkHttpClient.Builder()
-            .addInterceptor(loggingInterceptor)
-            .addInterceptor(chuckerInterceptor)
-            .addInterceptor(provideAuthorizationInterceptor())
-            .build()
-    }
-
-    @Singleton
-    @Provides
-    fun provideConverterFactory(): GsonConverterFactory {
-        return GsonConverterFactory.create()
-    }
-
-    @Singleton
-    @Provides
-    fun provideRetrofitInstance(
-        okHttpClient: OkHttpClient,
-        gsonConverterFactory: GsonConverterFactory
-    ): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .client(okHttpClient)
-            .addConverterFactory(gsonConverterFactory)
-            .build()
-    }
-
-    @Singleton
-    @Provides
-    fun provideApiService(retrofit: Retrofit): FriendshipAPI {
-        return retrofit.create(FriendshipAPI::class.java)
+    ): HttpClient {
+        val okHttpEngine = OkHttp.create {
+            addInterceptor(chuckerInterceptor)
+        }
+        return HttpClient(okHttpEngine) {
+            install(Logging) {
+                level = LogLevel.BODY
+            }
+            defaultRequest {
+                url(Constants.BASE_URL)
+                header(HttpHeaders.Authorization, Constants.TOKEN)
+                header(
+                    HttpHeaders.ContentType,
+                    ContentType.Application.Json
+                )//not needed , but for understanding
+                //alternate way
+                /**     headers {
+                append(HttpHeaders.Authorization, Constants.TOKEN)
+                append(HttpHeaders.ContentType, ContentType.Application.Json) //not needed , but for understanding
+                }*/
+            }
+            install(ContentNegotiation) {
+                //for kotlinx and gson serialization
+                /**             json(Json {
+                explicitNulls = false
+                encodeDefaults = true
+                })
+                gson{
+                serializeNulls()
+                }*/
+                //for jackson serialization-recommended
+                jackson {
+                    setDefaultSetterInfo(JsonSetter.Value.forValueNulls(Nulls.SKIP))
+                }
+            }
+        }
     }
 
 }

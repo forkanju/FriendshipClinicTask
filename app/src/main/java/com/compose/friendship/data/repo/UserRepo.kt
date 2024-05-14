@@ -1,7 +1,7 @@
 package com.compose.friendship.data.repo
 
 import com.compose.friendship.RequestState
-import com.compose.friendship.model.User
+import com.compose.friendship.model.UserInfo
 
 interface UserRepo {
 
@@ -10,7 +10,7 @@ interface UserRepo {
         email: String,
         gender: String,
         status: String
-    ):RequestState<User.UserInfo>
+    ): RequestState<UserInfo>
 
     suspend fun update(
         userId: String,
@@ -18,7 +18,7 @@ interface UserRepo {
         email: String,
         gender: String,
         status: String
-    ):RequestState<User.UserInfo>
+    ): RequestState<UserInfo>
 
-    suspend fun getUsers():RequestState<List<User.UserInfo>>
+    suspend fun getUsers(): RequestState<List<UserInfo>>
 }

@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.hilt.android)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.realm)
 }
 
 android {
@@ -66,18 +67,20 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation)
     ksp(libs.hilt.compiler)
-
+    // To use WorkManager with Hilt
+    implementation (libs.androidx.hilt.work)
+    // Annotation processor when using Kotlin
+    ksp(libs.androidx.hilt.hilt.compiler)
     //room
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
 
-    // Retrofit
-    implementation(libs.retrofit)
-    implementation(libs.converter.gson)
-    implementation(libs.okhttp)
-    implementation(libs.logging.interceptor)
+    // ktor
+    implementation(libs.bundles.ktor)
 
+    //realm
+    implementation(libs.realm)
     //dimen sdp ssp
     implementation(libs.sdp.android)
     implementation(libs.ssp.android)
@@ -92,6 +95,8 @@ dependencies {
 
     //Pretty Logger
     implementation(libs.logger)
-    //Timber
-    implementation(libs.timber)
+    //Coroutine Worker
+    implementation(libs.androidx.work.runtime.ktx)
+    implementation(libs.androidx.work.multiprocess)
+
 }
