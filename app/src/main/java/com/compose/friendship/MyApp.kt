@@ -8,22 +8,33 @@ import dagger.hilt.android.HiltAndroidApp
 import io.realm.kotlin.internal.RealmInitializer
 import javax.inject.Inject
 
+/**
+ * Custom Application class for MyApp.
+ * Initializes Hilt for dependency injection and sets up WorkManager configuration.
+ */
 @HiltAndroidApp
 class MyApp : Application(), Configuration.Provider {
+
     @Inject
     lateinit var workerFactory: HiltWorkerFactory
 
+    /**
+     * Provides the WorkManager configuration.
+     */
     override val workManagerConfiguration: Configuration
         get() = Configuration.Builder()
             .setDefaultProcessName(packageName)
             .setMinimumLoggingLevel(android.util.Log.DEBUG)
-            .setWorkerFactory(workerFactory)
+            .setWorkerFactory(workerFactory) //Needed for Hilt to work.
             .build()
 
+    /**
+     * Called when the application is starting.
+     */
     override fun onCreate() {
         super.onCreate()
-        AppInitializer
-            .getInstance(this)
+        // Initialize Realm database, needed for Hilt to work
+        AppInitializer.getInstance(this)
             .initializeComponent(RealmInitializer::class.java)
     }
 }
