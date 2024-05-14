@@ -2,8 +2,8 @@
 agp = "8.4.0"
 fancytoast = "2.0.2"
 fragmentKtx = "1.7.0"
-hiltAndroid = "2.51.1"
-hiltNavigation = "1.2.0"
+daggerHilt = "2.51.1"
+androidxHilt = "1.2.0"
 kotlin = "1.9.23"
 coreKtx = "1.13.1"
 junit = "4.13.2"
@@ -16,7 +16,6 @@ ksp = "1.9.23-1.0.20"
 logger = "2.2.0"
 navigationUiKtx = "2.7.7"
 navigationFragmentKtx = "2.7.7"
-okhttp = "5.0.0-alpha.14"
 roomCompiler = "2.6.1"
 sdpAndroid = "1.1.1"
 timber = "5.0.1"
@@ -27,7 +26,8 @@ activity = "1.9.0"
 swiperefreshlayout = "1.1.0"
 ktor = "2.3.10"
 slf4jAndroid = "1.7.36"
-
+realm = "1.16.0"
+androidxWork = "2.9.0"
 
 [libraries]
 androidx-activity = { module = "androidx.activity:activity-ktx", version.ref = "activity" }
@@ -49,13 +49,14 @@ chucker-library-no = { module = "com.github.chuckerteam.chucker:library-no-op", 
 #gson
 google-gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 #hilt
-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltAndroid" }
-hilt-navigation = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigation" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "daggerHilt" }
+hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "daggerHilt" }
+hilt-navigation = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "androidxHilt" }
+androidx-hilt-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidxHilt" }
+androidx-hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "androidxHilt" }
 logger = { module = "com.orhanobut:logger", version.ref = "logger" }
 sdp-android = { module = "com.intuit.sdp:sdp-android", version.ref = "sdpAndroid" }
 ssp-android = { module = "com.intuit.ssp:ssp-android", version.ref = "sdpAndroid" }
-timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 toasty = { module = "com.github.GrenderG:Toasty", version.ref = "toasty" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
@@ -68,6 +69,10 @@ ktor-client-negotiation= { module = "io.ktor:ktor-client-content-negotiation", v
 ktor-client-serialization-jackson= { module = "io.ktor:ktor-serialization-jackson", version.ref = "ktor" }
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
 slf4j-android = { module = "org.slf4j:slf4j-android", version.ref = "slf4jAndroid" }
+#realm
+realm = { module = "io.realm.kotlin:library-base", version.ref = "realm" }
+androidx-work-runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "androidxWork" }
+androidx-work-multiprocess = { group = "androidx.work", name = "work-multiprocess", version.ref = "androidxWork" }
 
 [bundles]
 ktor = [
@@ -89,6 +94,7 @@ jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "k
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin"}
-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hiltAndroid" }
+hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "daggerHilt" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp"}
+realm = { id = "io.realm.kotlin", version.ref = "realm"}
 
